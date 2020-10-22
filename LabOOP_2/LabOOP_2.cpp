@@ -27,7 +27,7 @@ public: //свойства и методы доступны везде
 };
 
 class Point2 { //класс для демонстрации реализации типов видимости и реализации методов сразу в определении и после определения
-protected:
+protected: //свойства доступны только в данном классе и классах-потомках
     int a, b;
 public:
     Point2() { //конструктор по умолчанию
@@ -89,6 +89,34 @@ public:
     }
 };
 
+class Line { //класс для демонстрации композиции объектов
+private:
+    Point *p1;
+    Point *p2;
+public:
+    Line() { //конструктор по умолчанию
+        printf("Вызвался конструктор Line по умолчанию (автоматическое создание двух точек).\n");
+        p1 = new Point;
+        p2 = new Point;
+    }
+    Line(int x1, int y1, int x2, int y2) { //конструктор с параметрами
+        printf("Вызвался конструктор Line с параметрами.\n");
+        p1 = new Point(x1, y1);
+        p2 = new Point(x2, y2);
+    }
+    Line(Line& L) { //конструктор копирования
+        printf("Вызвался конструктор Line копирования.\n");
+        p1 = new Point(*(L.p1));
+        p2 = new Point(*(L.p2));
+    }
+    ~Line() { //деструктор Point
+        printf("Вызвался деструктор Line.\nВходные данные: ");
+        printf("%i, %i\n\n", p1, p2);
+        delete p1;
+        delete p2;
+    }
+};
+
 int main()
 {
     setlocale(LC_ALL, "Russian");
@@ -127,6 +155,14 @@ int main()
 
     ColorPoint* color2 = new ColorPoint(1, 2, 30); //реализация класса-потомка 
     delete color2;
+
+    system("pause");
+    printf("\n");
+
+    Line *l1 = new Line(); //
+    Line *l2 = new Line(*l1);
+    delete l1;
+    delete l2;
 
     system("pause");
     printf("\n");
