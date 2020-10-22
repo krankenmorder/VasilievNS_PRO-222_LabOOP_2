@@ -15,14 +15,14 @@ public:
         this->x = x;
         this->y = y;
     }
-    Point(Point &p) { //конструктор копирования
+    Point(Point &P) { //конструктор копирования
         printf("Вызвался конструктор Point копирования.\n");
-        this->x = p.x;
-        this->y = p.y;
+        this->x = P.x;
+        this->y = P.y;
     }
     ~Point() { //деструктор Point
         printf("Вызвался деструктор Point.\nВходные данные: ");
-        printf("%d, %d\n", x, y);
+        printf("%d, %d\n\n", x, y);
     }
 };
 
@@ -30,7 +30,15 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    Point p;
-    Point p2(10,10);
-    Point p3(p2);
+    Point P; //статически созданные объекты
+    Point P2(10,10);
+    Point P3(P2);
+
+    Point *dinP = new Point; //динамически созданные объекты
+    Point *dinP2 = new Point(11, 11);
+    Point *dinP3 = new Point(*dinP2);
+
+    delete dinP; //удаление динамически созданных объектов
+    delete dinP2;
+    delete dinP3;
 }
