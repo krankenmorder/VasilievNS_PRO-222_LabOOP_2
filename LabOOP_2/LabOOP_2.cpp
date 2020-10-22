@@ -63,26 +63,29 @@ void Point2::reset() { //реализация метода после опред
     b = 0;
 }
 
-class ColorPoint: public Point { //класс-наследник класса Point
+class ColorPoint: public Point2 { //класс-наследник класса Point
 public:
     int color;
-    ColorPoint(): Point(){ //конструктор по умолчанию
+    ColorPoint(): Point2(){ //конструктор по умолчанию
         printf("Вызвался конструктор ColorPoint по умолчанию.\n");
         color = 0;
     }
-    ColorPoint(int x, int y, int color): Point(x, y){ //конструктор с параметрами
+    ColorPoint(int x, int y, int color): Point2(x, y){ //конструктор с параметрами
         printf("Вызвался конструктор ColorPoint с параметрами.\n");
         this->color = color;
     }
     ColorPoint(ColorPoint& P) { //конструктор копирования
         printf("Вызвался конструктор ColorPoint копирования.\n");
-        this->x = P.x;
-        this->y = P.y;
+        this->a = P.a;
+        this->b = P.b;
         this->color = P.color;
     }
     ~ColorPoint() { //деструктор Point
         printf("Вызвался деструктор ColorPoint.\nВходные данные: ");
-        printf("%d, %d, color = %d\n\n", x, y, color);
+        printf("%d, %d, color = %d\n\n", a, b, color);
+    }
+    void changeColor(int newColor) {
+        color = newColor;
     }
 };
 
@@ -119,8 +122,11 @@ int main()
     system("pause");
     printf("\n");
 
-    ColorPoint *colP = new ColorPoint(1, 2, 30); //реализация класса-потомка 
-    delete colP;
+    Point2 *color1 = new ColorPoint(1, 2, 30); //помещение объекта в переменную другого типа (класса-предка)
+    delete color1;
+
+    ColorPoint* color2 = new ColorPoint(1, 2, 30); //реализация класса-потомка 
+    delete color2;
 
     system("pause");
     printf("\n");
