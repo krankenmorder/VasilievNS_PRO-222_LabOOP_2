@@ -110,10 +110,9 @@ public:
         p2 = new Point(*(L.p2));
     }
     ~Line() { //деструктор Point
-        printf("Вызвался деструктор Line.\nВходные данные: ");
-        printf("%i, %i\n\n", p1, p2);
         delete p1;
         delete p2;
+        printf("Вызвался деструктор Line.\n");
     }
 };
 
@@ -159,7 +158,7 @@ int main()
     system("pause");
     printf("\n");
 
-    Line *l1 = new Line(); //
+    Line *l1 = new Line(); //реализация композиций объектов
     Line *l2 = new Line(*l1);
     delete l1;
     delete l2;
